@@ -1,11 +1,13 @@
 ---
-  title: "Stats 240P"
+title: "Stats 240P"
 output: pdf_document
 ---
-  
-  # Lecture 1
-  
-  Section 3.1.1
 
-Modern financial theory developed in the 1950's and 1960's
+# Lecture 1
+
+Section 3.1.1
+
+Modern financia theory developed in the 1950's and 1960's
+
+Testing
 

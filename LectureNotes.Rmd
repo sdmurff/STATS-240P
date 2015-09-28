@@ -7,5 +7,5 @@ output: pdf_document
   
   Section 3.1.1
 
-Modern financia theory developed in the 1950's and 1960's
+Modern financial theory developed in the 1950's and 1960's
 

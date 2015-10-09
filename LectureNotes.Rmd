@@ -1,5 +1,5 @@
 ---
-title: "Stats 240P"
+title: "STATS240P"
 output: pdf_document
 ---
 
@@ -7,8 +7,33 @@ output: pdf_document
 
 Section 3.1.1
 
+Section 3.1.2 
+
+Section 3.2 Markowitz in the 1950's thesis at UofC Won nobel prize in economics
+
+What are the mechanics of short-selling? Are these usually very short term positions? Do you people incorporate short selling into a buy and hold strategy?
+
+The efficient frontier is the upper left boundry of the minimium-variance set. This name probably stems from the use of the term 'efficient' in statistics which mean minimum variance.
+
+
+Sharpe
+Merton Miller
+
 Modern financial theory developed in the 1950's and 1960's
 
-Testing
+# Vocabulary
+- $\sigma^2$, or the variance of a given asset's return is known as Risk
+- $\sigma$, or the standard deviation of a given asset's return is known as Volitility
 
-Testing 1
+
+# Lecture 2
+
+All of the methods discussed in this class are introdcued in the context of optimal assett allocation
+
+If returns following brownian motion then optimizt
+
+Eigenvalues are real if matrix is symetric.
+Eigenvalues are non-negative if matrix is non-negative definite.
+
+
+Section 2.2 Principal componenet analysis

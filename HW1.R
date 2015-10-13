@@ -1,3 +1,24 @@
+# Exercise 1.6
+X <- read.table('http://web.stanford.edu/~xing/statfinbook/_BookData/Chap06/w_logret_3stocks.txt', header=T)
+
+X[,1]<-as.Date(X[,1],"%m/%d/%Y")
+
+glimpse(X)
+plot(x=X$Date,y=X$PFE)
+abline(v=as.Date('1999-03-08'))
+
+
+# Problem 2.2
+X <- read.table('http://web.stanford.edu/~xing/statfinbook/_BookData/Chap02/m_swap.txt', skip=1, header=T)
+
+summary(princomp(X[,-1]))
+summary(princomp(X[,-1], cor=T))
+
+
+
+
+
+
 # Author: Steve Pittard - wsp@emory.edu, ticopittard@gmail.com
 # This code is in support of the the following two YOUTUBE videos which attempt to explain the basics of PCA
 

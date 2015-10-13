@@ -1,0 +1,19 @@
+---
+title: "STATS240P-Homework 1"
+author: "Scott Murff"
+date: "October 13, 2015"
+output: pdf_document
+---
+
+# Exercise 1.2
+
+
+
+# Exercise 1.6
+
+
+
+# Exercise 2.2
+
+# Exercise 2.3
+

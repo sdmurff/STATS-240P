@@ -6,6 +6,17 @@ X[,1]<-as.Date(X[,1],"%m/%d/%Y")
 glimpse(X)
 plot(x=X$Date,y=X$PFE)
 abline(v=as.Date('1999-03-08'))
+abline(h=0)
+
+
+ggplot(X, aes(x=X$Date, y=X$PFE)) + 
+          geom_point(shape=1) +
+          geom_vline(xintercept=as.numeric((as.Date('1999-03-08'))), linetype="dotted")
+
+summary(X$PFE[1:897])
+summary(X$PFE[898:length(X$PFE)])
+
+hist(X$PFE[898:length(X$PFE)])
 
 
 # Problem 2.2

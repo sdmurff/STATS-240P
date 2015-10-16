@@ -1,13 +1,50 @@
 ---
 title: "STATS240P-Homework 1"
 author: "Scott Murff"
-date: "October 13, 2015"
+date: " Due October 19, 2015"
 output: pdf_document
 ---
 
 # Exercise 1.2
 
+Using the F-test of a general linear hypothesis, show how to test the following hypotheses on the regression coefficients:
 
+## a) $H_0 : \beta_0 = \beta_2$.
+
+Recall that the full model under consideration is:
+
+$$ y_i = \beta_0 + \beta_1x_{i1}
+                 + \beta_2x_{i2}
+                 + \beta_3x_{i3}
+                 + \epsilon_i, 1\leq i \leq n$$
+                 
+or in matrix notation:
+
+$$\boldsymbol{Y} = \boldsymbol{X\beta} + \boldsymbol{\epsilon}, \,where\, \boldsymbol{Y}\,and\,\boldsymbol{\epsilon} \,are\, \left(n\,x\,1\right), \boldsymbol{X} \,is\, \left(n\,x\,4\right),  \,and\,  \boldsymbol{\beta} \, is \left(\,4\,x\,1\right)$$.
+                                               
+Since $\beta_0 = \beta_2$ implies $\beta_0 - \beta_2 = 0$, $H_0$ can be represented as $\boldsymbol{\beta}^T\mathbf{c} = 0$ where:
+
+$$\boldsymbol{\beta}^T = \left(\beta_0\,\beta_1\,\beta_2\,\beta_3\right)$$ 
+
+and 
+
+$$\mathbf{c} = \left(\begin{array}{c}1\\0\\-1\\0\end{array}\right)$$
+
+This contraint results in the following restricted model:
+
+$$ y_i = \beta_0\left(1+x_{i2}\right) + \beta_1x_{i1}
+                                      + \beta_3x_{i3}
+                                      + \epsilon_i$$
+or in matrix notation:
+
+$$\boldsymbol{Y} = \boldsymbol{\tilde{X}\tilde{\beta}} + \boldsymbol{\epsilon}, \,where\, \boldsymbol{Y}\,and\,\boldsymbol{\epsilon} \,are\, \left(n\,x\,1\right), \boldsymbol{\tilde{X}} \,is\, \left(n\,x\,3\right),  \,and\,  \boldsymbol{\tilde{\beta}} \, is \left(\,3\,x\,1\right)$$.
+
+Once the full and restricted models are defined, performing an F-test then proceeds in the following steps:
+
+1. Estimate $\boldsymbol{\hat{\beta}}$ in the full model using the relationship $\boldsymbol{\hat{\beta}} = \left(\boldsymbol{X}^T\boldsymbol{X}\right)^{-1}\boldsymbol{X}^T\boldsymbol{Y}$. It follows that $\hat{\boldsymbol{Y}} = \boldsymbol{X}\left(\boldsymbol{X}^T\boldsymbol{X}\right)^{-1}\boldsymbol{X}^T\boldsymbol{Y}$. Note that $\mathop{\mathbb{E\left(\epsilon\right)}} = \boldsymbol{0}$ 
+2. Compute the RSS of the full model by $||\boldsymbol{Y}-\hat{\boldsymbol{Y}}||^2$
+3. Estimate $\boldsymbol{\tilde{\beta}}$ in the full model using the relationship $\boldsymbol{\tilde{\beta}} = \left(\boldsymbol{\tilde{X}}^T\boldsymbol{\tilde{X}}\right)^{-1}\boldsymbol{\tilde{X}}^T\boldsymbol{Y}$. It follows that $\hat{\boldsymbol{Y_0}} = \boldsymbol{\tilde{X}}\left(\boldsymbol{\tilde{X}}^T\boldsymbol{\tilde{X}}\right)^{-1}\boldsymbol{\tilde{X}}^T\boldsymbol{Y}$. Note that $\mathop{\mathbb{E\left(\epsilon\right)}} = \boldsymbol{0}$ 
+4. Compute the RSS of the restricted model by $||\boldsymbol{Y}-\hat{\boldsymbol{Y_0}}||^2$
 
 # Exercise 1.6
 
@@ -16,4 +53,3 @@ output: pdf_document
 # Exercise 2.2
 
 # Exercise 2.3
-

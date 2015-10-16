@@ -1,0 +1,29 @@
+---
+title: "Untitled"
+author: "Scott Murff"
+date: "October 16, 2015"
+output: pdf_document
+---
+
+2. In order to write down the constrained model we define a new parameter $\theta = \beta_1 + \beta_2 - 3\beta_3$ $= \boldsymbol{\beta}^T\mathbf{c}$. This implies the following:
+
+* $\beta_1 = \theta - \beta_2 + 3\beta_3$
+* $\beta_2 = \theta - \beta_1 + 3\beta_3$
+* $\beta_3 = \dfrac{\beta_1 + \beta_2 - \theta}{3}$
+
+Plugging these into the full model and doing some algebra to simplify we end up with a reparameterized full model:
+
+$$ y_i = \beta_0 + \theta\left(x_{i1}+x_{i2}-x_{i3}\right) 
+                 + \beta_1\left(\dfrac{x_{i3}}{3} - x_{i2}\right)
+                 + \beta_2\left(\dfrac{x_{i3}}{3} - x_{i1}\right)
+                 + \beta_3\left(3x_{i1}+3x_{i2}\right)
+                 + \epsilon_i$$
+                 
+Since the restriction implies $\theta = 0$ the restricted model can be written as:
+
+$$ y_i = \beta_0 + \beta_1\left(\dfrac{x_{i3}}{3} - x_{i2}\right)
+                 + \beta_2\left(\dfrac{x_{i3}}{3} - x_{i1}\right)
+                 + \beta_3\left(3x_{i1}+3x_{i2}\right)
+                 + \epsilon_i$$
+
+After running the full model and then the restricted model, subject to $\boldsymbol{\beta}^T\mathbf{c} = 0$, we would generate the following F-Statistic under the null: $F = \dfrac{\frac{||\hat{\boldsymbol{Y}}-\hat{\boldsymbol{Y_0}}||^2}{p-r}}{\frac{||\boldsymbol{Y}-\hat{\boldsymbol{Y}}||^2}{n-p}}$

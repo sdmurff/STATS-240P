@@ -9,7 +9,8 @@ output: pdf_document
 
 Using the F-test of a general linear hypothesis, show how to test the following hypotheses on the regression coefficients:
 
-## a) $H_0 : \beta_0 = \beta_2$.
+## (a) 
+$H_0 : \beta_0 = \beta_2$.
 
 Recall that the full model under consideration is:
 
@@ -30,7 +31,7 @@ and
 
 $$\mathbf{c} = \left(\begin{array}{c}1\\0\\-1\\0\end{array}\right)$$
 
-This contraint results in the following restricted model:
+This constraint results in the following restricted model:
 
 $$ y_i = \beta_0\left(1+x_{i2}\right) + \beta_1x_{i1}
                                       + \beta_3x_{i3}
@@ -46,8 +47,62 @@ Once the full and restricted models are defined, performing an F-test then proce
 3. Estimate $\boldsymbol{\tilde{\beta}}$ in the full model using the relationship $\boldsymbol{\tilde{\beta}} = \left(\boldsymbol{\tilde{X}}^T\boldsymbol{\tilde{X}}\right)^{-1}\boldsymbol{\tilde{X}}^T\boldsymbol{Y}$. It follows that $\hat{\boldsymbol{Y_0}} = \boldsymbol{\tilde{X}}\left(\boldsymbol{\tilde{X}}^T\boldsymbol{\tilde{X}}\right)^{-1}\boldsymbol{\tilde{X}}^T\boldsymbol{Y}$. Note that $\mathop{\mathbb{E\left(\epsilon\right)}} = \boldsymbol{0}$ 
 4. Compute the RSS of the restricted model by $||\boldsymbol{Y}-\hat{\boldsymbol{Y_0}}||^2$
 
+The RSS of the full and the RSS of restricted model can be viewed geometrically as in the picture below (image taken from course textbook)
+
+![](H:/Stanford/STATS240P/Ftest.png)
+
+As can be seen in the picture, $||\boldsymbol{Y}-\hat{\boldsymbol{Y_0}}||^2 = ||\boldsymbol{Y}-\hat{\boldsymbol{Y}}||^2 + ||\hat{\boldsymbol{Y}}-\hat{\boldsymbol{Y_0}}||^2$ 
+
+This relationship holds by Pythagoras' theorem for projections and the fact that $||\boldsymbol{Y}-\hat{\boldsymbol{Y}}||^2$ and $||\hat{\boldsymbol{Y}}-\hat{\boldsymbol{Y_0}}||^2$ are orthogonal.
+
+We want a test that will tell us if the term $||\hat{\boldsymbol{Y}}-\hat{\boldsymbol{Y_0}}||^2$ is sufficiently large to conclude that the full model is superior to the restricted model. So we proceed to step 5.
+
+5. Construct an F-Statistic as follows: $F = \dfrac{\frac{||\hat{\boldsymbol{Y}}-\hat{\boldsymbol{Y_0}}||^2}{p-r}}{\frac{||\boldsymbol{Y}-\hat{\boldsymbol{Y}}||^2}{n-p}}$, where the degrees of freedom in the denominator are n-4, and the degrees of freedom in the numerator are 4-3. Under the null $F \overset{H_0}{\sim} F(1,n-4)$. If the value of $F$ is larger than the value of the quantile $F_{1,n-4;\alpha}$ then we reject the null and conclude that the full model is superior. Otherwise we fail to reject the null and use the restricted model.
+
+## (b) 
+$H_0 : \beta_1 + \beta_2 = 3\beta_3$.
+
+To test this hypothesis we follow the same logic and procedure outlined in a) above with the following adjustments:
+
+1. In this case $H_0$ can be represented as $\beta_1 + \beta_2 - 3\beta_3 = 0$ or $\boldsymbol{\beta}^T\mathbf{c} = 0$ where:
+
+$$\boldsymbol{\beta}^T = \left(\beta_0\,\beta_1\,\beta_2\,\beta_3\right)$$ 
+
+and 
+
+$$\mathbf{c} = \left(\begin{array}{c}0\\1\\1\\-3\end{array}\right)$$
+
+$H_0$ still implies a single linear restriction so will result in the following F-Statistic: $F = \dfrac{\frac{||\hat{\boldsymbol{Y}}-\hat{\boldsymbol{Y_0}}||^2}{1}}{\frac{||\boldsymbol{Y}-\hat{\boldsymbol{Y}}||^2}{n-4}}$. Under the null $F\overset{H_0}{\sim} F(1,n-4)$. If the value of $F$ is larger than the value of the quantile $F_{1,n-4;\alpha}$ then we reject the null and conclude that the full model is superior. Otherwise we fail to reject the null and use the restricted model.
+
 # Exercise 1.6
 
+## (a)
+
+```{r echo=FALSE, warning=FALSE}
+library(knitr)
+read_chunk('H:/Stanford/STATS240P/Homework 1.R')
+```
+
+```{r HW1, echo=FALSE, results='hide', eval=TRUE, warning=FALSE, message=FALSE}
+```
+
+```{r a1_6_1, fig.height=4, fig.width=6}
+```
+
+An initial glance at the plot suggests that the i.i.d. assumption for Pfizer returns is a reasonable one. After adding a horizontal line at 0 and a verical line at March 8, 1999 there does appear to be a slight downward shift of the mean of the returns after this date. It is not easy to see visually however from a scatter plot. A difference is more clear by looking at a box plot as shown below:
+
+```{r a1_6_2, fig.height=4, fig.width=6}
+```
+
+## (b)
+
+A regression summary is shown below:
+```{r b1_6_1}
+```
+
+Confidence Intervals for the paramters are shown below:
+```{r b1_6_2}
+```
 
 
 # Exercise 2.2

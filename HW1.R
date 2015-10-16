@@ -1,24 +1,41 @@
-# Exercise 1.6
+## @knitr HW1
+#### Exercise 1.6 ####
 X <- read.table('http://web.stanford.edu/~xing/statfinbook/_BookData/Chap06/w_logret_3stocks.txt', header=T)
-
+# Convert Date column from a factor to an R date
 X[,1]<-as.Date(X[,1],"%m/%d/%Y")
 
-glimpse(X)
+## @knitr a1_6_1
+#### 1.6 (a) ####
+# Plot Pfizer returns and add lines to highlight behavior before and after March 8, 1999
 plot(x=X$Date,y=X$PFE)
 abline(v=as.Date('1999-03-08'))
 abline(h=0)
+## @knitr a1_6_2
+# Box plot makes difference more apparent
+boxplot(X$PFE[1:897],X$PFE[897:length(X$PFE)],names = c("Before March 8, 1999","After March 8, 1999"))
+abline(h=0)
 
+## @knitr b1_6_1
+#### 1.6 (b) ####
+# Create independent variables
+X$less.than.t0<-ifelse(X$Date<as.Date('1999-03-08'),1,0)
+X$more.than.t0<-ifelse(X$Date>=as.Date('1999-03-08'),1,0)
+# Run regression
+fit.full<-lm(PFE ~ less.than.t0 + more.than.t0 - 1,data=X)
+summary(fit.full)
+## @knitr b1_6_2
+confint(fit,level=0.95)
 
-ggplot(X, aes(x=X$Date, y=X$PFE)) + 
-          geom_point(shape=1) +
-          geom_vline(xintercept=as.numeric((as.Date('1999-03-08'))), linetype="dotted")
+## @knitr c1_6_1
+#### 1.6 (c) ####
+# Fit the reduced model
+X$x1.plus.x2<-X$less.than.t0+X$more.than.t0
+fit.reduced<-lm(PFE ~ x1.plus.x2 - 1,data=X)
+summary(fit.reduced)
 
-summary(X$PFE[1:897])
-summary(X$PFE[898:length(X$PFE)])
+anova(fit.reduced,fit.full)
 
-hist(X$PFE[898:length(X$PFE)])
-
-
+## @knitr next
 # Problem 2.2
 X <- read.table('http://web.stanford.edu/~xing/statfinbook/_BookData/Chap02/m_swap.txt', skip=1, header=T)
 

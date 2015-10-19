@@ -20,11 +20,11 @@ abline(h=0)
 # Create independent variables
 X$less.than.t0<-ifelse(X$Date<as.Date('1999-03-08'),1,0)
 X$more.than.t0<-ifelse(X$Date>=as.Date('1999-03-08'),1,0)
-# Run regression
+# Run regression and view output
 fit.full<-lm(PFE ~ less.than.t0 + more.than.t0 - 1,data=X)
 summary(fit.full)
 ## @knitr b1_6_2
-confint(fit,level=0.95)
+confint(fit.full,level=0.95)
 
 ## @knitr c1_6_1
 #### 1.6 (c) ####
@@ -32,13 +32,21 @@ confint(fit,level=0.95)
 X$x1.plus.x2<-X$less.than.t0+X$more.than.t0
 fit.reduced<-lm(PFE ~ x1.plus.x2 - 1,data=X)
 summary(fit.reduced)
-
+# Use anova to carry out an F-test
 anova(fit.reduced,fit.full)
 
-## @knitr next
-# Problem 2.2
+## @knitr 2_2_1
+#### Exercise 2.2 ####
 X <- read.table('http://web.stanford.edu/~xing/statfinbook/_BookData/Chap02/m_swap.txt', skip=1, header=T)
+head(X)
+summary(princomp(X[,-1]))
+summary(princomp(X[,-1], cor=T))
+# Both PCA with correlation/covariance matrices tells that
+# the first one or two components can explain more than 99% of the variance among the data.
+# So we can safely use the first two compoenents for analyses.
 
+#### Exercise 2.3 ####
+X <- read.table('http://stanford.edu/~xing/statfinbook/_BookData/Chap01/d_logret_12stocks.txt', header=T)
 summary(princomp(X[,-1]))
 summary(princomp(X[,-1], cor=T))
 
@@ -52,7 +60,7 @@ summary(princomp(X[,-1], cor=T))
 
 # Principal Components Analysis Using R - P1 http://www.youtube.com/watch?v=5zk93CpKYhg
 # Principal Components Analysis Using R - P2 http://www.youtube.com/watch?v=I5GxNzKLIoU 
- 
+
 
 library(calibrate)
 my.classes = read.csv("http://steviep42.bitbucket.org/YOUTUBE.DIR/marks.dat")
@@ -92,7 +100,7 @@ abline(0,pc2.slope,col="green")
 
 textxy(12,10,"(-0.710,-0.695)",cx=0.9,dcol="red")
 textxy(-12,10,"(0.695,-0.719)",cx=0.9,dcol="green")
- 
+
 # See how much variation each eigenvector accounts for
 
 pc1.var = 100*round(my.eigen$values[1]/sum(my.eigen$values),digits=2)

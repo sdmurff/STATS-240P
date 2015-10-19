@@ -1,4 +1,4 @@
-## @knitr HW1
+## @knitr HW1point6
 #### Exercise 1.6 ####
 X <- read.table('http://web.stanford.edu/~xing/statfinbook/_BookData/Chap06/w_logret_3stocks.txt', header=T)
 # Convert Date column from a factor to an R date
@@ -35,108 +35,113 @@ summary(fit.reduced)
 # Use anova to carry out an F-test
 anova(fit.reduced,fit.full)
 
-## @knitr 2_2_1
+## @knitr HW2point2
 #### Exercise 2.2 ####
+# Read in data from website
 X <- read.table('http://web.stanford.edu/~xing/statfinbook/_BookData/Chap02/m_swap.txt', skip=1, header=T)
-head(X)
-summary(princomp(X[,-1]))
-summary(princomp(X[,-1], cor=T))
-# Both PCA with correlation/covariance matrices tells that
-# the first one or two components can explain more than 99% of the variance among the data.
-# So we can safely use the first two compoenents for analyses.
 
+## @knitr a2_2_1
+#### 2.2 (a) ####
+# Do Manual PCA with covariance matrix
+standardize<-function(x){(x-mean(x))}
+# Standardize data. Since all variable are in the same units scaling by standard deviation is not necessary
+X.standardized<-apply(X[2:length(X)],2,standardize)
+X.covar<-cov(X.standardized)
+X.eig<-eigen(X.covar)
+
+# Use R function princomp to do PCA
+cov.PCA<-princomp(X[2:length(X)])
+
+# Compare manaul PCA with that from princomp
+summary(cov.PCA)
+# Standard deviation
+formatC(sqrt(X.eig$values),format='f',digits = 6)
+# Proportion of Variance
+formatC(X.eig$values/sum(X.eig$values),format='f',digits = 6)
+# Cumulative Proportion
+formatC(cumsum(X.eig$values/sum(X.eig$values)),format='f',digits = 6)
+
+# Plot the Variance
+screeplot(cov.PCA)
+
+## @knitr b2_2_1
+#### 2.2 (b) ####
+# Do Manual PCA with covariance matrix
+X.corr<-cor(X.standardized)
+X.eig<-eigen(X.corr)
+
+# Use R function princomp to do PCA with correlation matrix
+corr.PCA<-princomp(X[2:length(X)], cor=T)
+
+# Compare manaul PCA with correlation matrix with that from princomp
+summary(corr.PCA)
+# Standard deviation
+formatC(sqrt(X.eig$values),format='f',digits = 6)
+# Proportion of Variance
+formatC(X.eig$values/sum(X.eig$values),format='f',digits = 6)
+# Cumulative Proportion
+formatC(cumsum(X.eig$values/sum(X.eig$values)),format='f',digits = 6)
+
+# Plot the variance
+screeplot(corr.PCA)
+
+## @knitr next
+cor.PCA<-princomp(X[2:length(X)], cor=T)
+
+## @knitr c2_2_1
+#### 2.2 (c) ####
+# Read in daily and monthly data in order to compare PCA results
+D<-read.table("http://web.stanford.edu/~xing/statfinbook/_BookData/Chap02/d_swap.txt",skip=1,header=T)
+M<-read.table('http://web.stanford.edu/~xing/statfinbook/_BookData/Chap02/m_swap.txt',skip=1,header=T)
+
+#Replicate Results from Section 2.2.3
+D.diff<-apply(D,2,diff)
+D.diff.center<-scale(D.diff,center=T,scale=F)
+cov.D.diff<-princomp(D.diff.center)
+corr.D.diff<-princomp(D.diff.center,cor=T)
+# Results from monthly swap file as calculated for (a) and (b) of this problem (not differenced)
+M.center<-scale(M[2:length(M)],center=T,scale=F)
+cov.M<-princomp(M.center)
+corr.M<-princomp(M.center,cor=T)
+
+# Comparsison 1: Results from Section 2.2.3 to results from non-differenced version of monthly swap data.
+# PCA Comparison with Covariance Matrix
+summary(cov.D.diff)
+summary(cov.M)
+# PCA Comparison with Correlation Matrix
+summary(corr.D.diff)
+summary(corr.M)
+
+## @knitr c2_2_2
+# Comparsison 2: Results from Section 2.2.3 to results from differenced version of monthly swap data.
+# Results from monthly swap file after differencing
+M.diff<-apply(M[2:length(M)],2,diff)
+M.diff.center<-scale(M.diff,center=T,scale=F)
+cov.M.diff<-princomp(M.diff.center)
+corr.M.diff<-princomp(M.diff.center,cor=T)
+# PCA Comparison with Covariance Matrix
+summary(cov.D.diff)
+summary(cov.M.diff)
+# PCA Comparison with Correlation Matrix
+summary(corr.D.diff)
+summary(corr.M.diff)
+
+## @knitr HW2point3
+S <- read.table('http://stanford.edu/~xing/statfinbook/_BookData/Chap01/d_logret_12stocks.txt', header=T)
+# Eliminate Date Column for simplicity
+S[,1]<-NULL
+S.center<-scale(S,center=T,scale=F)
+
+## @knitr c2_3_1
 #### Exercise 2.3 ####
-X <- read.table('http://stanford.edu/~xing/statfinbook/_BookData/Chap01/d_logret_12stocks.txt', header=T)
-summary(princomp(X[,-1]))
-summary(princomp(X[,-1], cor=T))
+#### 2.3 (a) ####
+# Run PCA analysis using princomp function with Covariance Matrix
+cov.S<-princomp(S.center)
+summary(cov.S)
 
+## @knitr c2_3_2
+#### 2.3 (b) ####
+# Run PCA analysis using princomp function with Correlation Matrix
+corr.S<-princomp(S.center,cor=T)
+summary(corr.S)
 
-
-
-
-
-# Author: Steve Pittard - wsp@emory.edu, ticopittard@gmail.com
-# This code is in support of the the following two YOUTUBE videos which attempt to explain the basics of PCA
-
-# Principal Components Analysis Using R - P1 http://www.youtube.com/watch?v=5zk93CpKYhg
-# Principal Components Analysis Using R - P2 http://www.youtube.com/watch?v=I5GxNzKLIoU 
-
-
-library(calibrate)
-my.classes = read.csv("http://steviep42.bitbucket.org/YOUTUBE.DIR/marks.dat")
-plot(my.classes,cex=0.9,col="blue",main="Plot of Physics Scores vs. Stat Scores")
-options(digits=3)
-par(mfrow=c(1,1))
-
-# Scale the data
-
-standardize <- function(x) {(x - mean(x))}
-my.scaled.classes = apply(my.classes,2,function(x) (x-mean(x)))
-my.scaled.classes1 = apply(my.classes,2,standardize)
-plot(my.scaled.classes,cex=0.9,col="blue",main="Plot of Physics Scores vs. Stat Scores",sub="Mean Scaled",xlim=c(-30,30))
-
-# Find Eigen values of covariance matrix
-
-my.cov = cov(my.scaled.classes)
-my.eigen = eigen(my.cov)
-rownames(my.eigen$vectors)=c("Physics","Stats")
-colnames(my.eigen$vectors)=c("PC1","PC")
-# Note that the sum of the eigen values equals the total variance of the data
-
-sum(my.eigen$values)
-var(my.scaled.classes[,1]) + var(my.scaled.classes[,2])
-
-# The Eigen vectors are the principal components. We see to what extent each variable contributes
-
-loadings = my.eigen$vectors
-
-# Let's plot them 
-
-pc1.slope = my.eigen$vectors[1,1]/my.eigen$vectors[2,1]
-pc2.slope = my.eigen$vectors[1,2]/my.eigen$vectors[2,2]
-
-abline(0,pc1.slope,col="red")
-abline(0,pc2.slope,col="green")
-
-textxy(12,10,"(-0.710,-0.695)",cx=0.9,dcol="red")
-textxy(-12,10,"(0.695,-0.719)",cx=0.9,dcol="green")
-
-# See how much variation each eigenvector accounts for
-
-pc1.var = 100*round(my.eigen$values[1]/sum(my.eigen$values),digits=2)
-pc2.var = 100*round(my.eigen$values[2]/sum(my.eigen$values),digits=2)
-xlab=paste("PC1 - ",pc1.var," % of variation",sep="")
-ylab=paste("PC2 - ",pc2.var," % of variation",sep="")
-
-# Multiply the scaled data by the eigen vectors (principal components)
-
-scores = my.scaled.classes %*% loadings
-sd = sqrt(my.eigen$values)
-rownames(loadings) = colnames(my.classes)
-
-plot(scores,ylim=c(-10,10),main="Data in terms of EigenVectors / PCs",xlab=xlab,ylab=ylab)
-abline(0,0,col="red")
-abline(0,90,col="green")
-
-# Correlation BiPlot
-
-scores.min = min(scores[,1:2])
-scores.max = max(scores[,1:2])
-
-plot(scores[,1]/sd[1],scores[,2]/sd[2],main="My First BiPlot",xlab=xlab,ylab=ylab,type="n")
-rownames(scores)=seq(1:nrow(scores))
-abline(0,0,col="red")
-abline(0,90,col="green")
-
-# This is to make the size of the lines more apparent
-factor = 5
-
-# First plot the variables as vectors
-arrows(0,0,loadings[,1]*sd[1]/factor,loadings[,2]*sd[2]/factor,length=0.1, lwd=2,angle=20, col="red")
-text(loadings[,1]*sd[1]/factor*1.2,loadings[,2]*sd[2]/factor*1.2,rownames(loadings), col="red", cex=1.2)
-
-# Second plot the scores as points
-text(scores[,1]/sd[1],scores[,2]/sd[2], rownames(scores),col="blue", cex=0.7)
-
-somelabs = paste(round(my.classes[,1],digits=1),round(my.classes[,2],digits=1),sep=" , ")
-#identify(scores[,1]/sd[1],scores[,2]/sd[2],labels=somelabs,cex=0.8)

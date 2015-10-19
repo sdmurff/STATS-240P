@@ -1,7 +1,7 @@
 ---
 title: "STATS240P-Homework 1"
 author: "Scott Murff"
-date: " Due October 19, 2015"
+date: " Due October 19, 2015 at 5pm to baijiang@stanford.edu"
 output: pdf_document
 ---
 
@@ -49,7 +49,7 @@ Once the full and restricted models are defined, performing an F-test then proce
 
 The RSS of the full and the RSS of restricted model can be viewed geometrically as in the picture below (image taken from course textbook)
 
-![](/Users/scottmurff/Documents/Stanford/STATS-240P/Ftest.PNG)
+![](H:/Stanford/STATS240P/Ftest.PNG)
 
 As can be seen in the picture, $||\boldsymbol{Y}-\hat{\boldsymbol{Y_0}}||^2 = ||\boldsymbol{Y}-\hat{\boldsymbol{Y}}||^2 + ||\hat{\boldsymbol{Y}}-\hat{\boldsymbol{Y_0}}||^2$ 
 
@@ -95,10 +95,10 @@ After obtaining $\boldsymbol{\hat{\tilde{\beta}}}$ from the reduced model and $\
 
 ```{r echo=FALSE, warning=FALSE}
 library(knitr)
-read_chunk('/Users/scottmurff/Documents/Stanford/STATS-240P/Homework 1.R')
+read_chunk('H:/Stanford/STATS240P/Homework 1.R')
 ```
 
-```{r HW1, echo=FALSE, results='hide', eval=TRUE, warning=FALSE, message=FALSE}
+```{r HW1point6, echo=FALSE, results='hide', eval=TRUE, warning=FALSE, message=FALSE}
 ```
 
 ```{r a1_6_1, fig.height=4, fig.width=6}
@@ -131,4 +131,55 @@ As can be seen in the output above, the F-Statistic under the null is 6.009 resu
 
 # Exercise 2.2
 
+## (a)
+
+```{r HW2point2, echo=TRUE, results='hide', eval=TRUE, warning=FALSE, message=FALSE}
+```
+
+```{r a2_2_1}
+```
+
+My manual version of PCA with the covariance matrix matches (with minor rounding error) the output from princomp. The results show that nearly 93 percent of the total variance can be captured in the first principal component. Over 99 percent of the variance can be captured in the first two principal components. The plot from the screenplot function shows a plot of the variances attributable to each component. These results show that it would be reasonable to use just the first two principal compenents for analysis.
+
+## (b)
+
+```{r b2_2_1}
+```
+
+My manual version of PCA with the correlation matrix matches (with minor rounding error) the output from princomp. The results show that nearly 89 percent of the total variance can be captured in the first principal component. Over 99 percent of the variance can be captured in the first two principal components. The plot from the screenplot function shows a plot of the variances attributable to each component. These results show that it would be reasonable to use just the first two principal compenents for analysis.
+
+## (c)
+
+This question asks for a comparison of PCA results from Section 2.2.3 from the textbook, which uses daily swap data, to the PCA results using monthly data. There seems to be an inconsistency however, since the results from 2.2.3 are based on differenced daily data, while the results from parts (a) and (b) are not based on differenced data. I proceed to show two comparisons:
+
+1. An seemingly apples to oranges comparison with daily differenced data and monthly non-differenced data.
+2. An apples to apples comparison where I difference the monthly data as well and then compare those results.
+
+```{r c2_2_1}
+```
+
+
+```{r c2_2_2}
+```
+
+In the apples to apples comparison, daily vs monthly data seems to make little difference. In the case of using the covariance matrix, the 1st component of the daily data accounts for slightly more variance than the 1st component of the monthly data,  0.9268570 vs 0.9176055, respectively. However, the 2nd component of the daily data accounts for slightly less variance than the 2nd compoenent of the monthly data, 0.0527213 vs  0.07234153, so that the cumulative variance is actually greater for the monthly data and stays slightly higher for all the rest of the components. The differences may not be meaningful however. In the case of using the correlation matrix, the story is same. However, the differences do not appear to be large and therefore it may not make a big difference whether daily or monthly samples are used in analysis, especially after the first two compenents are selected.
+
 # Exercise 2.3
+
+```{r HW2point3, echo=TRUE, results='hide', eval=TRUE, warning=FALSE, message=FALSE}
+```
+
+## (a)
+
+```{r c2_3_1}
+```
+
+This PCA analysis shows that the first principal component accounts for roughly 47 percent of the variance. Subsequent components each account for a decreasing but still significant portion of the variance. You may need to use many of the components to avoid losing significant information.
+
+## (b)
+
+```{r c2_3_2}
+```
+
+This PCA analysis shows that the first principal component accounts for roughly 48 percent of the variance, similar to when using the covariance matrix. Subsequent components each account for a decreasing but still significant portion of the variance. You may need to use many of the components to avoid losing significant information.
+

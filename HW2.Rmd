@@ -1,0 +1,55 @@
+---
+title: "STATS 240P - Homework 2"
+author: "Scott Murff"
+date: "Due November 9, 2015"
+output: pdf_document
+---
+
+# Sections Covered in Lectures
+
+*Friday, October 16 2.3 Multi-variate Normal, 2.1.2 Mean and Covariance Matrix, 3.3 CAPM, 1.4.1 Analysis of Residuals, QQ-Plot
+*Wednesday, October 21 TA Session - 2.3, 1.3, 1.4 Regression Diagnostics, Variable Selection, Mulit-Variate Normal
+*Friday, October 23 Lecture - 1.5 Stochastic regressors, 1.6.1 Bootstrapping, 1.6.2, 2.3.1, 2.3.2 Multivariate Normal, 2.3.4 Wishart Distribution
+
+
+# Bullet Point 1
+
+Prove (3.27) and (3.28). Hint: Review the derivation of the multivariate t-distribution and the F-distribution and Hotellings T-statistic in the tutorial session of October 21.
+
+## Prove 3.27
+
+The results of Sections 2.3.3 and 2.3.4 can be use to obtain the conditional distribution of $\alpha \beta V$ (3.27) (page 78)
+
+## Prove 3.28
+
+Moreover, arguments similar to those in 2.32 and 2.33 can be used to show that 3.28 is true. (page 78)
+
+# Bullet Point 2
+
+## (a)
+
+Read Section 9.2.1 of textbook concerning multivariate regression. Use this and Section 1.5.1(linear regression as a minimum-variance lin- ear prediction) to derive the conditional distribution of Y1 given Y2 = y2 in Section 2.3.2. Hint: Review tutorial session of October 21.
+
+## (b) 2.4 (c)
+
+Ex- ercise 2.4(c) (which gives and alternative derivation based on much heavier algebra in Exercise 2.4(a) and (b) that you can assume without carrying out the details)
+
+# Bullet Point 3 - Exercise 2.9
+
+# Bullet Point 4 - Exercise 3.6
+
+## (a)
+
+CAPM
+
+## (b)
+
+Bootstrap
+
+## (d)
+
+Regression and Hypoethsis Test (F-test?)
+
+## (g)
+
+Regression

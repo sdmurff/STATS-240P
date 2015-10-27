@@ -7,9 +7,13 @@ output: pdf_document
 
 # Sections Covered in Lectures
 
-*Friday, October 16 2.3 Multi-variate Normal, 2.1.2 Mean and Covariance Matrix, 3.3 CAPM, 1.4.1 Analysis of Residuals, QQ-Plot
-*Wednesday, October 21 TA Session - 2.3, 1.3, 1.4 Regression Diagnostics, Variable Selection, Mulit-Variate Normal
-*Friday, October 23 Lecture - 1.5 Stochastic regressors, 1.6.1 Bootstrapping, 1.6.2, 1.6.3, 2.3.1, 2.3.2 Multivariate Normal, 2.3.4 Wishart Distribution
+* Friday, October 16 2.3 Multi-variate Normal, 2.1.2 Mean and Covariance Matrix, 3.3 CAPM, 1.4.1 Analysis of Residuals, QQ-Plot
+* Wednesday, October 21 TA Session - 2.3, 1.3, 1.4 Regression Diagnostics, Variable Selection, Mulit-Variate Normal
+* Friday, October 23 Lecture - 1.5 Stochastic regressors, 1.6.1 Bootstrapping, 1.6.2, 1.6.3, 2.3.1, 2.3.2 Multivariate Normal, 2.3.4 Wishart Distribution
+
+1.4, 1.5, 1.6
+
+2.1.2, 2.3
 
 
 # Bullet Point 1

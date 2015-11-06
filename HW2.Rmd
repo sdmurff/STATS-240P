@@ -52,8 +52,15 @@ We can plug in $\boldsymbol{X}\boldsymbol{B} +\boldsymbol{E}$ for $\boldsymbol{Y
 $$E\left(\hat{\boldsymbol{B}}\right)=E\left(\boldsymbol{\left(X^T X\right)^{-1}X^T\left(\boldsymbol{X}\boldsymbol{B} +\boldsymbol{E}\right)}\right)$$
 $$=E\left(\boldsymbol{\left(X^T X\right)^{-1}X^T\boldsymbol{X}\boldsymbol{B} + \left(X^T X\right)^{-1}X^T\boldsymbol{E}}\right)$$
 $$=E\left(\boldsymbol{I\boldsymbol{B} + \left(X^T X\right)^{-1}X^T\boldsymbol{E}}\right)$$
-$$=E\left(\boldsymbol{\boldsymbol{B}\right) + E\left(\left(X^T X\right)^{-1}X^T\boldsymbol{E}\right)$$
-$$=\boldsymbol{B} + \boldsymbol{\left(X^T X\right)^{-1}X^T E\left(\boldsymbol{E}\right)$$
+$$=E\left(\boldsymbol{B}\right) + E\left(\boldsymbol{\left(X^T X\right)^{-1}X^TE}\right)$$
+$$=\boldsymbol{B} + \boldsymbol{\left(X^T X\right)^{-1}X^T} E\left(\boldsymbol{E}\right)$$
+$$=\boldsymbol{B} + \boldsymbol{\left(X^T X\right)^{-1}X^T0}$$
+$$=\boldsymbol{B}$$
+
+Recall that $E\left(\boldsymbol{\epsilon_t}\right)=\boldsymbol{0_t}$ so $\boldsymbol{0}$ is an $n x q$ matrix of zeros and cancels out everything except for $\boldsymbol{B}$ and recall that $\boldsymbol{B}$ is:
+
+
+$$ \left(\begin{array}{c}\boldsymbol{\alpha^T}\\\boldsymbol{\beta^T}\end{array}\right)$$
 
 ## Prove 3.28
 

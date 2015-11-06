@@ -32,7 +32,7 @@ To prove the distributions are as stated above I proceed in three steps:
 2. Show that the variances of $\hat{\boldsymbol{\alpha}}$ and $\hat{\boldsymbol{\beta}}$ are as shown above. This is done for $\hat{\boldsymbol{\alpha}}$ and $\hat{\boldsymbol{\beta}}$ separately.
 3. Show that $n\hat{\textbf{V}}$ has the disribution shown above.
 
-1.
+### Step 1
 
 We represent the model $q$ regression models of $\boldsymbol{y_t}=\boldsymbol{\alpha}+x_t\boldsymbol{\beta}+\boldsymbol{\epsilon_t}, 1\leq t \leq n$, as
 
@@ -57,16 +57,22 @@ $$=\boldsymbol{B} + \boldsymbol{\left(X^T X\right)^{-1}X^T} E\left(\boldsymbol{E
 $$=\boldsymbol{B} + \boldsymbol{\left(X^T X\right)^{-1}X^T0}$$
 $$=\boldsymbol{B}$$
 
-Recall that $E\left(\boldsymbol{\epsilon_t}\right)=\boldsymbol{0_t}$ so $\boldsymbol{0}$ is an $n x q$ matrix of zeros and cancels out everything except for $\boldsymbol{B}$ and recall that $\boldsymbol{B}$ is:
+Recall that $E\left(\boldsymbol{\epsilon_t}\right)=\boldsymbol{0_t}$ so $\boldsymbol{0}$ is an $n x q$ matrix of zeros and cancels out everything except for $\boldsymbol{B}$ and recall that $\boldsymbol{B}$ is a $2 x q$ matrix of the form:
 
 
 $$ \left(\begin{array}{c}\boldsymbol{\alpha^T}\\\boldsymbol{\beta^T}\end{array}\right)$$
+
+Hence $\hat{\boldsymbol{\alpha}}$ and $\hat{\boldsymbol{\beta}}$ have means $\boldsymbol{\alpha}$ and $\boldsymbol{\beta}$, respectively. And since we are operating under the assumption of normally distributed $\boldsymbol{\epsilon_t}$s we can conclude these are the means of a normal distribution.
+
+### Step 2
+
+To prove the variance of $\hat{\boldsymbol{\alpha}}$ and $\hat{\boldsymbol{\beta}}$ we first note that 
 
 ## Prove 3.28
 
 Moreover, arguments similar to those in 2.32 and 2.33 can be used to show that 3.28 is true. (page 78)
 
-# Bullet Point 2
+# Problem 2
 
 ## (a)
 
@@ -76,9 +82,63 @@ Read Section 9.2.1 of textbook concerning multivariate regression. Use this and 
 
 Ex- ercise 2.4(c) (which gives and alternative derivation based on much heavier algebra in Exercise 2.4(a) and (b) that you can assume without carrying out the details)
 
-# Bullet Point 3 - Exercise 2.9
+# Problem 3 - Exercise 2.9
 
-# Bullet Point 4 - Exercise 3.6
+## Part (a)
+
+Show that $E\left(\boldsymbol{\nabla}\log f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)\right) = \boldsymbol{0}$
+
+In order to show this we make use of the fact that if $f_{\boldsymbol{\theta}}$ is a smooth function of $\boldsymbol{\theta}$ then we can exchange the order of expectation and differentiation. First we note that:
+
+$$E\left(\boldsymbol{\nabla}\log f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)\right) = E\Big(\frac{\boldsymbol{\nabla}\ f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)}{f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)}\Big)$$
+
+This equality follows from the rules of differentiating logs and the chain rule. Next, by the definition of an expectation we write:
+
+$$E\Big(\frac{\boldsymbol{\nabla} f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)}{\ f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)}\Big) = \int \frac{\boldsymbol{\nabla}\ f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)}{f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)} f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right) dx_1,\ldots,dx_n$$ 
+
+$$=\int \boldsymbol{\nabla} f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)$$
+
+We can then switch the order of expectation and differentiation as shown below:
+
+$$=\boldsymbol{\nabla} \int f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right) dx_1,\ldots,dx_n$$
+$$=\boldsymbol{\nabla} 1$$
+$$=\boldsymbol{0}$$
+
+Note that $\int f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right) dx_1,\ldots,dx_n = 1$ since we are integrating a probability density function. Hence we have shown $E\left(\boldsymbol{\nabla}\log f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)\right) = \boldsymbol{0}$ 
+
+## Part (b)
+
+Show that $E\left(-\boldsymbol{\nabla^2} l\left(\boldsymbol{\theta})\right)\right) = Cov\left(\boldsymbol{\nabla}\log f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)\right)$ where $l\left(\boldsymbol{\theta})\right)$ is the log-likelihood function.
+
+We begin by writing:
+
+$$E\left(-\boldsymbol{\nabla^2} l\left(\boldsymbol{\theta})\right)\right) = E\left(-\boldsymbol{\nabla^2} \log f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)\right)$$
+
+By taking the first gradient we get:
+
+$$= E\Big(-\boldsymbol{\nabla}\Big(\frac{\boldsymbol{\nabla}\ f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)}{f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)}\Big)\Big)$$
+
+$$= E\Big(-\frac{\boldsymbol{\nabla^2} f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)}{f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)}+\frac{\boldsymbol{\nabla} f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right) \left(\boldsymbol{\nabla}f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)\right)^T}{ f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)^2}\Big)$$
+
+$$= \int-\frac{\boldsymbol{\nabla^2} f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)}{f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)}f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right) dx_1,\ldots,dx_n+E\Big(\frac{\boldsymbol{\nabla} f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right) \left(\boldsymbol{\nabla}f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)\right)^T}{ f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)^2}\Big)$$
+
+$$= \int-\boldsymbol{\nabla^2} f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right) dx_1,\ldots,dx_n+E\left(\boldsymbol{\nabla} \log f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right) \left(\boldsymbol{\nabla}\log f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)\right)^T\right)$$
+
+$$= -\boldsymbol{\nabla^2} \Big(\int f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right) dx_1,\ldots,dx_n \Big)+Cov \left(\boldsymbol{\nabla} \log f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)\right)$$
+
+$$= -\boldsymbol{\nabla^2} \left(1\right)+Cov \left(\boldsymbol{\nabla} \log f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)\right)$$
+$$= Cov \left(\boldsymbol{\nabla} \log f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)\right)$$
+
+Note that $\int f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right) dx_1,\ldots,dx_n = 1$ since we are integrating a probability density function and $\boldsymbol{\nabla^2} \left(1\right) = 0$. Hence we have shown $E\left(-\boldsymbol{\nabla^2} l\left(\boldsymbol{\theta})\right)\right) = Cov\left(\boldsymbol{\nabla}\log f_{\boldsymbol{\theta}}\left(X_1,\ldots,X_n\right)\right)$
+
+
+
+
+
+
+
+
+# Problem 4 - Exercise 3.6
 
 ## (a)
 

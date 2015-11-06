@@ -1,7 +1,7 @@
 ---
 title: "STATS 240P - Homework 2"
 author: "Scott Murff"
-date: "Due November 9, 2015"
+date: "Due November 6, 2015"
 output: pdf_document
 ---
 
@@ -16,13 +16,44 @@ output: pdf_document
 2.1.2, 2.3
 
 
-# Bullet Point 1
+# Problem 1
 
 Prove (3.27) and (3.28). Hint: Review the derivation of the multivariate t-distribution and the F-distribution and Hotellings T-statistic in the tutorial session of October 21.
 
 ## Prove 3.27
 
 The results of Sections 2.3.3 and 2.3.4 can be use to obtain the conditional distribution of $\alpha \beta V$ (3.27) (page 78)
+
+$\hat{\boldsymbol{\alpha}} \sim N\Big(\boldsymbol{\alpha},\Big(\frac{1}{n}+\frac{\bar{x}^2}{\sum_{t=1}^{n} \left(x_t-\bar{x}\right)^2}\Big)\textbf{V}\Big),\hat{\boldsymbol{\beta}} \sim N\Big(\boldsymbol{\beta},\frac{\textbf{V}}{\sum_{t=1}^{n} \left(x_t-\bar{x}\right)^2}\Big),n\hat{\textbf{V}} \sim W_q\Big(\textbf{V},\textit{n}-2\Big)$ 
+
+To prove the distributions are as stated above I proceed in three steps:
+
+1. Show that $\hat{\boldsymbol{\alpha}}, \hat{\boldsymbol{\beta}}$ are distributed normal with means $\boldsymbol{\alpha}$ and $\boldsymbol{\beta}$, respectively. I do this simultaneously using matrix calculations as will be shown.
+2. Show that the variances of $\hat{\boldsymbol{\alpha}}$ and $\hat{\boldsymbol{\beta}}$ are as shown above. This is done for $\hat{\boldsymbol{\alpha}}$ and $\hat{\boldsymbol{\beta}}$ separately.
+3. Show that $n\hat{\textbf{V}}$ has the disribution shown above.
+
+1.
+
+We represent the model $q$ regression models of $\boldsymbol{y_t}=\boldsymbol{\alpha}+x_t\boldsymbol{\beta}+\boldsymbol{\epsilon_t}, 1\leq t \leq n$, as
+
+$$\boldsymbol{Y} = \boldsymbol{X}\boldsymbol{B} +\boldsymbol{E}$$
+
+Where:
+
+* $\boldsymbol{Y}$ is an $n x q$ matrix of the $\boldsymbol{y_t}$s
+* $\boldsymbol{X}$ is an $n x 2$ matrix consisting where the first column is a vector of 1s and the second column is the vector of market returns, $x_t, 1\leq t \leq n$
+* $\boldsymbol{B}$ is a $2 x q$ matrix where row 1 is a row vector containing $\alpha_j, j = 1, ...q$ and row two is a row vector containing $\beta_j, j = 1, ...q$
+* $\boldsymbol{E}$ is an $n x q$ matrix of the of the $\boldsymbol{\epsilon_t}$s
+
+The OLS estimate of $\boldsymbol{B}$ is $\hat{\boldsymbol{B}}=\boldsymbol{\left(X^T X\right)^{-1}X^TY}$
+
+We can plug in $\boldsymbol{X}\boldsymbol{B} +\boldsymbol{E}$ for $\boldsymbol{Y}$ and then take the expectation as shown below:
+
+$$E\left(\hat{\boldsymbol{B}}\right)=E\left(\boldsymbol{\left(X^T X\right)^{-1}X^T\left(\boldsymbol{X}\boldsymbol{B} +\boldsymbol{E}\right)}\right)$$
+$$=E\left(\boldsymbol{\left(X^T X\right)^{-1}X^T\boldsymbol{X}\boldsymbol{B} + \left(X^T X\right)^{-1}X^T\boldsymbol{E}}\right)$$
+$$=E\left(\boldsymbol{I\boldsymbol{B} + \left(X^T X\right)^{-1}X^T\boldsymbol{E}}\right)$$
+$$=E\left(\boldsymbol{\boldsymbol{B}\right) + E\left(\left(X^T X\right)^{-1}X^T\boldsymbol{E}\right)$$
+$$=\boldsymbol{B} + \boldsymbol{\left(X^T X\right)^{-1}X^T E\left(\boldsymbol{E}\right)$$
 
 ## Prove 3.28
 
@@ -52,7 +83,7 @@ Bootstrap
 
 ## (d)
 
-Regression and Hypoethsis Test (F-test?)
+Regression and Hypothesis Test (F-test?)
 
 ## (g)
 

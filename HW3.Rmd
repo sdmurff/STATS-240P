@@ -1,0 +1,36 @@
+---
+title: "STATS 240P - Homework 3"
+author: "Scott Murff"
+date: "Due Monday, November 23, 2015 - 5pm Pacific Time to baijiang@stanford.edu"
+output: pdf_document
+--- 
+
+# Problem 1 - Exercise 5.7
+
+## (a)
+
+## (b)
+
+## (c)
+
+## (d)
+
+# Problem 2 - Exercise 5.9
+
+## (a)
+
+## (b)
+
+## (c)
+
+# Problem 3 - Exercise 6.3
+
+## (a)
+
+## (b)
+
+## (c)
+
+## (d)
+
+# Problem 4 - Exercise 6.5

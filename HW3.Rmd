@@ -9,9 +9,61 @@ output: pdf_document
 
 ## (a)
 
+To evaluate whether there are seasonal effects we decompose the return series into it's three components: trend, seasonal, and residual using the stl function in R. In order to do this we need to turn the log return series into an R ts object. This is complicated by the fact that the return series is weekly and years differ between having 52 and 53 weeks. We solve this problem by exluding the 53rd week in years where there is one. This adjustment to the data will not impact the conclusion of whether the series exhibits seasonal effects so we can proceed safely.
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+library(lubridate)
+# Exercise 5.7
+# Read in data from website
+Y <- read.table('http://web.stanford.edu/~xing/statfinbook/_BookData/Chap05/w_logret_yahoo.txt', header=T)
+# Create R compatible date column
+Y[,1]<-as.Date(Y[,1],format="%m/%d/%Y")
+# Calculate the week of the year, 1-52,53
+Y$week<-week(Y$Date)
+# Exclude the 53rd weeks
+Y<-Y[Y$week !=53,]
+# Create Time Series object for input into stl function
+Y.ts<-ts(Y$logret,freq=52, start=1996+14/52, end=2007+25/52)
+# Use stl function to decompose series into trend, seasonal, and residual components
+Y.season<-stl(Y.ts,s.window="periodic")
+plot(Y.season)
+```
+
+As can be seen using the vertical rectangular bars on the right hand side of the plots, the residual components accounts for almost all of the series. Note that the bar size is virtually the same between the data plot and the residual plot. The seasonality and trend components have very long bars suggesting very little importance (See here for more on how to interpret the bars: http://stats.stackexchange.com/questions/7876/interpreting-range-bars-in-rs-plot-stl). We conclude that the series does not exhibit seasonal effects.
+
+A second way to see this is to calculate the proportion of total variance in the series that is attributable to each component. As can be seen below, the residual accounts for the vast majority of the variation in the series, while the trend and seasonal components are responsible for a very small amount of the variation. Again, we conclude the series does not exhibit seasonal effects.
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+# Calulate proportion of variance for each series component
+apply(Y.season$time.series, 2, var) / var(Y.ts)
+```
+
 ## (b)
 
+Using the Ljung-Box test we conclude that there is very little evidence of serial correlations being present in the series since the p-values for the Q(m) statistic are all well above the .05 threshold, for m from 1 to 10. We fail to reject the null hypothesis of: no serial correlation. The actual p-values and a plot of them are shown below.
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+# Exercise 5.7 (b)
+# Read in data from website
+Y <- read.table('http://web.stanford.edu/~xing/statfinbook/_BookData/Chap05/w_logret_yahoo.txt', header=T)
+# Create R compatable date column
+Y[,1]<-as.Date(Y[,1],format="%m/%d/%Y")
+# Run the Ljung-Box test for lags 1-10 to determine if there are serial correlations in the series
+lb<-rep(1,10)
+for(i in 1:10){
+    p<-Box.test(Y$logret,lag=i,type="Ljung-Box")
+    lb[i]<-p$p.value
+}
+names(lb)<-c("pval.Lag 1","pval.Lag 2","pval.Lag 3","pval.Lag 4","pval.Lag 5",
+             "pval.Lag 6","pval.Lag 7","pval.Lag 8","pval.Lag 9","pval.Lag 10")
+lb
+
+
+plot(lb,xlab="Lag", ylab="p-value",ylim=c(0,.5))
+abline(h=.05)
+```
+
 ## (c)
+
+
 
 ## (d)
 

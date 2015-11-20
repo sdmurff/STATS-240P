@@ -49,23 +49,42 @@ auto.arima(training.deseason,ic="aic")
 auto.arima(D.season$time.series[,3])
 D[,1]<-as.Date(D[,1],format="%b-%b-%y")
 
-# Exercise 5.7
+# Exercise 5.7 (a)
+# Read in data from website
 Y <- read.table('http://web.stanford.edu/~xing/statfinbook/_BookData/Chap05/w_logret_yahoo.txt', header=T)
-Y <- read.table('http://web.stanford.edu/~xing/statfinbook/_BookData/Chap05/w_logret_yahoo.txt', header=T)
+# Create R compatable date column
 Y[,1]<-as.Date(Y[,1],format="%m/%d/%Y")
-# Y <- zoo(Y$logret,Y$Date)
-# plot(Y)
-# 
-# Y <- ts(coredata(Y), freq = 52)
-# Create column that tells me the week of the year
+# Calculate the week of the year, 1-52,53
 Y$week<-week(Y$Date)
-Y$yday<-yday(Y$Date)
+# Exclude the 53rd weeks
 Y<-Y[Y$week !=53,]
+# Create Time Series object for input into stl function
 Y.ts<-ts(Y$logret,freq=52, start=1996+14/52, end=2007+25/52)
-plot(Y.ts)
-
+# Use stl function to decompose series into trend, seasonal, and residual components
 Y.season<-stl(Y.ts,s.window="periodic")
-apply(Y.season$time.series, 2, var) / var(Y.ts)
 plot(Y.season)
-str(Y)
-Y$week<-week(Y$Date)
+
+# Calulate proportion of variance for each series component
+apply(Y.season$time.series, 2, var) / var(Y.ts)
+
+# Exercise 5.7 (b)
+# Read in data from website
+Y <- read.table('http://web.stanford.edu/~xing/statfinbook/_BookData/Chap05/w_logret_yahoo.txt', header=T)
+# Create R compatable date column
+Y[,1]<-as.Date(Y[,1],format="%m/%d/%Y")
+# Run the Ljung-Box test for lags 1-10 to determine if there are serial correlations in the series
+lb<-rep(1,10)
+for(i in 1:10){
+    p<-Box.test(Y$logret,lag=i,type="Ljung-Box")
+    lb[i]<-p$p.value
+}
+names(lb)<-c("pval.Lag 1","pval.Lag 2","pval.Lag 3","pval.Lag 4","pval.Lag 5",
+             "pval.Lag 6","pval.Lag 7","pval.Lag 8","pval.Lag 9","pval.Lag 10")
+lb
+
+
+plot(lb,xlab="Lag", ylab="p-value",ylim=c(0,.5))
+abline(h=.05)
+
+
+
